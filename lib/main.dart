@@ -4,7 +4,6 @@ void main() {
   runApp(const PortfolioApp());
 }
 
-/// Root widget: sets up MaterialApp with named routes for navigation.
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({super.key});
 
@@ -15,7 +14,9 @@ class PortfolioApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color(0xFF4B4FC4),
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4B4FC4)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF4B4FC4),
+        ),
         scaffoldBackgroundColor: const Color(0xFFF8F9FB),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -33,7 +34,6 @@ class PortfolioApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      // Named routes as required by the rubric.
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
@@ -44,100 +44,71 @@ class PortfolioApp extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// HOME PAGE
-// ---------------------------------------------------------------------------
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // MediaQuery used to make sizing responsive to screen width.
-    final screenWidth = MediaQuery.of(context).size.width;
-    final avatarRadius = screenWidth < 400 ? 50.0 : 60.0;
+    final width = MediaQuery.of(context).size.width;
+    final radius = width < 400 ? 50.0 : 60.0;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Portfolio'),
         centerTitle: true,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Profile image via CircleAvatar + NetworkImage.
-              CircleAvatar(
-                radius: avatarRadius,
-                backgroundColor: const Color(0xFFE4D9FA),
-                backgroundImage: const NetworkImage(
-                  'https://github.com/gnan-k.png',
-                ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(24, 55, 24, 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: radius,
+              backgroundColor: const Color(0xFFE4D9FA),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'YJS RAGHAVENDRA',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.5,
+                color: Color(0xFF4B4FC4),
               ),
-              const SizedBox(height: 24),
-
-              // Name, styled with Text widget.
-              const Text(
-                'KONDAVEETI GNANA KUMAR',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                  color: Color(0xFF4B4FC4),
-                ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'B.Tech 3rd Year · Computer Science-AIML',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
               ),
-              const SizedBox(height: 6),
-
-              // Designation.
-              const Text(
-                'B.Tech 3rd Year · Computer Science-AIML',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 32),
-
-              // Navigation buttons.
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/about');
-                },
-                child: const Text('About Me'),
-              ),
-              const SizedBox(height: 14),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/projects');
-                },
-                child: const Text('Projects'),
-              ),
-              const SizedBox(height: 24),
-
-              // Quick contact links, laid out with a Row.
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.email_outlined, size: 18),
-                    label: const Text('gnanakumarkondaveeti7@gmail.com'),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 35),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/about'),
+              child: const Text('About Me'),
+            ),
+            const SizedBox(height: 14),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/projects'),
+              child: const Text('Projects'),
+            ),
+            const SizedBox(height: 22),
+            TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.email_outlined, size: 18),
+              label: const Text('raghavendra@gmail.com'),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-// ABOUT PAGE
-// ---------------------------------------------------------------------------
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
@@ -148,34 +119,33 @@ class AboutPage extends StatelessWidget {
         title: const Text('About Me'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(20, 35, 20, 30),
         child: Column(
           children: [
-            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 color: const Color(0xFFE7E8F7),
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: Column(
-                children: const [
-                  Icon(Icons.person, size: 42, color: Color(0xFF4B4FC4)),
-                  SizedBox(height: 20),
+              child: const Column(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 42,
+                    color: Color(0xFF4B4FC4),
+                  ),
+                  SizedBox(height: 18),
                   Text(
-                    "Hello! I'm K. Gnana Kumar, currently pursuing my "
-                    "B.Tech 3rd year in Computer Science Engineering "
-                    "(AI & ML) at CR Rao AIMSCS. I enjoy learning about "
-                    "Artificial Intelligence and Machine Learning and "
-                    "exploring new technologies through hands-on "
-                    "projects. I like building creative and practical "
-                    "projects that help me improve my technical skills. "
-                    "Apart from technology, I enjoy working out and "
-                    "spending time on songwriting and music. I'm always "
-                    "interested in learning new things, improving "
-                    "myself, and turning my ideas into meaningful "
-                    "projects.",
+                    "Hello! I'm YJS Raghavendra, currently pursuing "
+                    "my B.Tech 3rd year in Computer Science Engineering "
+                    "(AI & ML). I am interested in Artificial Intelligence "
+                    "and Machine Learning and enjoy exploring new "
+                    "technologies. I like developing practical projects "
+                    "that improve my programming and problem-solving "
+                    "skills. I am always interested in learning new "
+                    "concepts and applying them to real-world problems.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14.5,
@@ -186,9 +156,8 @@ class AboutPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 30),
             ElevatedButton(
-              // Navigator.pop() returns to the previous page (Home).
               onPressed: () => Navigator.pop(context),
               child: const Text('Back to Home'),
             ),
@@ -199,12 +168,10 @@ class AboutPage extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// PROJECTS PAGE
-// ---------------------------------------------------------------------------
 class Project {
   final String title;
   final String description;
+
   const Project(this.title, this.description);
 }
 
@@ -213,19 +180,19 @@ class ProjectsPage extends StatelessWidget {
 
   static const List<Project> projects = [
     Project(
-      'AI-Powered Content Moderation System',
-      'A Python-based intelligent tool for video content filtering '
-          'and analysis.',
+      'House Price Prediction',
+      'A machine learning system that predicts house prices '
+      'using features such as location, area, and number of rooms.',
     ),
     Project(
-      'Sentiment Analysis System',
-      'An ML-based system that classifies text sentiment as '
-          'positive, negative, or neutral.',
+      'Disease Prediction System',
+      'An ML-based application that predicts possible diseases '
+      'from given symptoms using classification techniques.',
     ),
     Project(
-      'Student Management System',
-      'An application to manage student records, attendance, and '
-          'academic details.',
+      'Movie Recommendation System',
+      'A recommendation system that suggests movies based on '
+      'user preferences and previously watched movies.',
     ),
   ];
 
@@ -238,22 +205,21 @@ class ProjectsPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Expanded + ListView.builder keeps this responsive for any
-          // number of projects and any screen size.
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
               itemCount: projects.length,
               itemBuilder: (context, index) {
                 final project = projects[index];
+
                 return Card(
                   elevation: 2,
-                  margin: const EdgeInsets.only(bottom: 16),
+                  margin: const EdgeInsets.only(bottom: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(18),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -265,7 +231,7 @@ class ProjectsPage extends StatelessWidget {
                             color: Color(0xFF4B4FC4),
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 8),
                         Text(
                           project.description,
                           style: const TextStyle(
@@ -282,7 +248,7 @@ class ProjectsPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 24, top: 4),
+            padding: const EdgeInsets.only(bottom: 24),
             child: ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Back to Home'),
